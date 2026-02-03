@@ -364,6 +364,35 @@ p {
 }
 
 @media (max-width: 600px) {
+.item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+
+.item-logo img {
+  width: 56px;
+  height: auto;
+  object-fit: contain;
+}
+
+.item-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.item-meta {
+  margin: 4px 0 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.item-body {
+  font-size: 0.95rem;
+}
+
   .hero-content,
   .hero-card {
     padding: 24px;
