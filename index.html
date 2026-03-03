@@ -5,10 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>CV — Barre Beavogui</title>
 <style>
-:root{--bg:#f6f7fd;--card:rgba(255,255,255,.85);--cardSolid:#fff;--text:#0f172a;--muted:#64748b;--border:rgba(148,163,184,.28);--primary:#2563eb;--shadow:0 20px 70px rgba(15,23,42,.12);--radius:18px;}
-body.dark{--bg:#070b1a;--card:rgba(15,23,42,.78);--cardSolid:#0f172a;--text:#e2e8f0;--muted:#94a3b8;--border:rgba(148,163,184,.20);--primary:#60a5fa;--shadow:0 20px 85px rgba(0,0,0,.36);}
+:root{
+ --bg1:#edf4ff;
+ --bg2:#ffffff;
+ --card: rgba(255,255,255,.86);
+ --cardSolid:#fff;
+ --text:#0f172a;
+ --muted:#64748b;
+ --border: rgba(148,163,184,.28);
+ --primary:#2563eb;
+ --accent:#9333ea;
+ --shadow: 0 20px 70px rgba(15,23,42,.12);
+ --radius:18px;
+}
+body.dark{
+ --bg1:#050817;
+ --bg2:#0b1220;
+ --card: rgba(15,23,42,.78);
+ --cardSolid:#0f172a;
+ --text:#e2e8f0;
+ --muted:#94a3b8;
+ --border: rgba(148,163,184,.20);
+ --primary:#60a5fa;
+ --accent:#8b5cf6;
+ --shadow: 0 20px 85px rgba(0,0,0,.36);
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#ffffff00);color:var(--text);}
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);}
 a{color:inherit;text-decoration:none}
 .container{max-width:1100px;margin:0 auto;padding:28px 20px 80px;}
 .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
@@ -18,21 +41,22 @@ h1{font-size:34px;line-height:1.06;margin:0 0 4px;font-weight:980;}
 .controls{display:flex;gap:10px}
 .btn{border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow);color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;}
 .btn:hover{border-color:var(--primary);color:var(--primary)}
-.nav{position:sticky;top:0;z-index:20;margin-top:18px;padding:12px 2px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-left:0;border-right:0;border-top:0;}
+.nav{position:sticky;top:0;z-index:20;margin-top:18px;padding:12px 2px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
 .navInner{display:flex;flex-wrap:wrap;gap:10px}
 .nav a{border:1px solid var(--border);padding:9px 12px;border-radius:999px;font-size:13px;}
 .nav a.active{border-color:var(--primary);color:var(--primary);box-shadow:var(--shadow)}
-section{margin-top:18px;}
-h2{margin:0 0 14px;font-size:14px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+section{margin-top:18px;scroll-margin-top:120px;}
+h2{margin:0 0 14px;font-size:14px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+h2:before{content:"";display:inline-block;width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--primary),var(--accent));}
 .card{background:var(--card);box-shadow:var(--shadow);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
 .card h3{margin:0;font-size:16px}
 .row{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.pill{border:1px solid var(--border);background:rgba(255,255,255,.6);color:var(--muted);padding:8px 10px;border-radius:999px;font-size:12px}
-body.dark .pill{background:rgba(15,23,42,.35)}
+.pill{border:1px solid var(--border);background:rgba(255,255,255,.68);color:var(--muted);padding:8px 10px;border-radius:999px;font-size:12px}
+body.dark .pill{background:rgba(255,255,255,.08)}
 .timeline{border-left:1px solid var(--border);padding-left:16px;display:grid;gap:12px}
 .tItem{position:relative}
-.tItem:before{content:"";position:absolute;left:-23px;top:18px;width:10px;height:10px;border-radius:999px;border:3px solid var(--cardSolid);background:var(--primary);box-shadow:0 0 0 6px rgba(37,99,235,.12)}
+.tItem:before{content:"";position:absolute;left:-23px;top:18px;width:10px;height:10px;border-radius:999px;border:3px solid var(--cardSolid);background:linear-gradient(135deg,var(--primary),var(--accent));box-shadow:0 0 0 6px rgba(37,99,235,.12)}
 .tTop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px;margin-bottom:8px}
 details{border:1px solid var(--border);background:rgba(255,255,255,.55);border-radius:16px;padding:14px 14px 12px}
 body.dark details{background:rgba(15,23,42,.45)}
@@ -83,7 +107,7 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-siz
 
 <div class="tItem">
 <div class="tTop"><span>2026</span><span>Schneider Electric</span></div>
-<details>
+<details open>
 <summary>Stagiaire Ingénieur — Distribution Électrique</summary>
 <ul>
 <li>Suivi technique de contrats et analyse d’équipements HT/BT.</li>
@@ -95,7 +119,7 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-siz
 
 <div class="tItem">
 <div class="tTop"><span>2025</span><span>BCE GRID</span></div>
-<details>
+<details open>
 <summary>Stagiaire Ingénieur — Suivi chantier HTB</summary>
 <ul>
 <li>Suivi de construction d’un poste haute tension.</li>
@@ -107,7 +131,7 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-siz
 
 <div class="tItem">
 <div class="tTop"><span>2024–2025</span><span>IREENA</span></div>
-<details>
+<details open>
 <summary>Parcours recherche</summary>
 <ul>
 <li>Rédaction d’un article scientifique.</li>
@@ -119,7 +143,7 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-siz
 
 <div class="tItem">
 <div class="tTop"><span>2024–2025</span><span>Polyjoule</span></div>
-<details>
+<details open>
 <summary>Projet techniques</summary>
 <ul>
 <li>Optimisation énergétique de véhicules.</li>
@@ -130,7 +154,7 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-siz
 
 <div class="tItem">
 <div class="tTop"><span>2022</span><span>Électricité de Guinée</span></div>
-<details>
+<details open>
 <summary>Stage technique</summary>
 <ul>
 <li>Transport et distribution d’énergie.</li>
@@ -229,7 +253,7 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-siz
 </div>
 </section>
 
-<div class="footer">CV statique — design “one page” avec navigation et mode sombre</div>
+<div class="footer">CV statique — design “one page”, tout visible par défaut, navigation + mode sombre</div>
 
 </div>
 <script>
