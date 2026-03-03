@@ -1,254 +1,263 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>CV — Barre Beavogui</title>
-  <style>
-    :root{--bg:#f5f7fb;--card:#fff;--text:#0f172a;--muted:#64748b;--border:rgba(148,163,184,.28);--primary:#2563eb;--shadow:0 8px 22px rgba(15,23,42,.08)}
-    body{margin:0;font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    *{box-sizing:border-box}
-    body.dark{--bg:#0b1220;--card:#0f172a;--text:#e2e8f0;--muted:#94a3b8;--border:rgba(148,163,184,.2);--primary:#60a5fa;--shadow:0 8px 22px rgba(0,0,0,.45)}
-    .app{max-width:1080px;margin:0 auto;padding:24px}
-    .top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
-    .kicker{color:var(--primary);font-weight:900;font-size:12px;text-transform:uppercase;margin-bottom:6px;letter-spacing:.08em}
-    .name{font-size:34px;font-weight:950;line-height:1.05;margin:0 0 3px}
-    .subtitle{font-size:14px;line-height:1.45;margin:0}
-    .muted{color:var(--muted)}
-    .controls{display:flex;gap:10px}
-    .btn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer;box-shadow:var(--shadow)}
-    .tabs{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
-    .tab{border-radius:999px;border:1px solid var(--border);background:var(--card);padding:8px 12px;font-size:13px;cursor:pointer;color:var(--text)}
-    .tab.active{border-color:var(--primary);color:var(--primary);box-shadow:var(--shadow)}
-    .panel{display:none;margin-top:14px}
-    .panel.active{display:block}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:16px}
-    .flex{display:grid;grid-template-columns:320px 1fr;gap:12px}
-    .list{display:flex;flex-direction:column;gap:10px}
-    .expItem{border:1px solid var(--border);background:var(--card);border-radius:14px;padding:14px;text-align:left;cursor:pointer}
-    .expItem.active{border-color:var(--primary);box-shadow:var(--shadow)}
-    .expTop{display:flex;justify-content:space-between;gap:10px}
-    .expRole{font-weight:900;font-size:14px}
-    .expRange{font-size:12px;color:var(--muted);font-weight:900}
-    .expCompany{font-size:13px;color:var(--muted);margin-top:3px}
-    .points{margin:12px 0 0; padding-left:18px; color:var(--text)}
-    .points li{margin:6px 0;font-size:14px;line-height:1.55}
-    .gridCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
-    .topRow{display:flex;justify-content:space-between;gap:12px}
-    .bold{font-weight:900}
-    .small{font-size:13px;color:var(--muted)}
-    .pillz{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .pill{font-size:12px;border:1px solid var(--border);background:var(--card);color:var(--muted);padding:6px 10px;border-radius:999px}
-    .footer{margin-top:18px;color:var(--muted);font-size:13px}
-    @media (max-width:860px){.top{flex-direction:column}.flex{grid-template-columns:1fr}}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CV — Barre Beavogui</title>
+<style>
+:root{--bg:#f6f7fd;--card:rgba(255,255,255,.85);--cardSolid:#fff;--text:#0f172a;--muted:#64748b;--border:rgba(148,163,184,.28);--primary:#2563eb;--shadow:0 20px 70px rgba(15,23,42,.12);--radius:18px;}
+body.dark{--bg:#070b1a;--card:rgba(15,23,42,.78);--cardSolid:#0f172a;--text:#e2e8f0;--muted:#94a3b8;--border:rgba(148,163,184,.20);--primary:#60a5fa;--shadow:0 20px 85px rgba(0,0,0,.36);}
+*{box-sizing:border-box}
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#ffffff00);color:var(--text);}
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:28px 20px 80px;}
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;}
+.kicker{color:var(--primary);font-weight:950;font-size:12px;text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px;}
+h1{font-size:34px;line-height:1.06;margin:0 0 4px;font-weight:980;}
+.subtitle{margin:0;line-height:1.5;font-size:14px;color:var(--muted);}
+.controls{display:flex;gap:10px}
+.btn{border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow);color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;}
+.btn:hover{border-color:var(--primary);color:var(--primary)}
+.nav{position:sticky;top:0;z-index:20;margin-top:18px;padding:12px 2px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border);border-left:0;border-right:0;border-top:0;}
+.navInner{display:flex;flex-wrap:wrap;gap:10px}
+.nav a{border:1px solid var(--border);padding:9px 12px;border-radius:999px;font-size:13px;}
+.nav a.active{border-color:var(--primary);color:var(--primary);box-shadow:var(--shadow)}
+section{margin-top:18px;}
+h2{margin:0 0 14px;font-size:14px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+.card{background:var(--card);box-shadow:var(--shadow);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.card h3{margin:0;font-size:16px}
+.row{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{border:1px solid var(--border);background:rgba(255,255,255,.6);color:var(--muted);padding:8px 10px;border-radius:999px;font-size:12px}
+body.dark .pill{background:rgba(15,23,42,.35)}
+.timeline{border-left:1px solid var(--border);padding-left:16px;display:grid;gap:12px}
+.tItem{position:relative}
+.tItem:before{content:"";position:absolute;left:-23px;top:18px;width:10px;height:10px;border-radius:999px;border:3px solid var(--cardSolid);background:var(--primary);box-shadow:0 0 0 6px rgba(37,99,235,.12)}
+.tTop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px;margin-bottom:8px}
+details{border:1px solid var(--border);background:rgba(255,255,255,.55);border-radius:16px;padding:14px 14px 12px}
+body.dark details{background:rgba(15,23,42,.45)}
+summary{list-style:none;cursor:pointer;font-weight:850;margin:0}
+summary::-webkit-details-marker{display:none}
+details[open]{background:var(--card)}
+ul{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.55;font-size:13px}
+.footer{margin-top:26px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:850px){.row{grid-template-columns:1fr};h1{font-size:30px}}
+</style>
 </head>
 <body>
-  <div class="app">
-    <header class="top">
-      <div>
-        <div class="kicker">CV</div>
-        <p class="name">BEAVOGUI Barre</p>
-        <p class="subtitle">Élève ingénieur en Génie Électrique — Polytech Nantes</p>
-        <p class="subtitle muted">À la recherche d’une alternance (contrat de professionnalisation) · Septembre 2026 · 5e année</p>
-      </div>
-      <div class="controls">
-        <button id="themeBtn" class="btn" type="button">Mode sombre</button>
-      </div>
-    </header>
+<div class="container">
+<div class="topbar">
+<div>
+<div class="kicker">cv</div>
+<h1>BEAVOGUI Barre</h1>
+<p class="subtitle">Élève ingénieur en Génie Électrique — Polytech Nantes<br>À la recherche d’une alternance (contrat de professionnalisation) · Septembre 2026 · 5e année</p>
+</div>
+<div class="controls">
+<button class="btn" id="themeToggle">Mode sombre</button>
+</div>
+</div>
 
-    <nav class="tabs">
-      <button id="aboutTab" class="tab active">À propos</button>
-      <button id="experiencesTab" class="tab">Expériences</button>
-      <button id="formationTab" class="tab">Formation</button>
-      <button id="competencesTab" class="tab">Compétences</button>
-      <button id="distinctionsTab" class="tab">Distinctions</button>
-      <button id="languesTab" class="tab">Langues</button>
-      <button id="interetsTab" class="tab">Centres d’intérêt</button>
-    </nav>
+<nav class="nav">
+<div class="navInner" id="nav">
+<a href="#a-propos">À propos</a>
+<a href="#experiences">Expériences</a>
+<a href="#formation">Formation</a>
+<a href="#competences">Compétences</a>
+<a href="#distinctions">Distinctions</a>
+<a href="#langues">Langues</a>
+<a href="#interets">Centres d’intérêt</a>
+</div>
+</nav>
 
-    <section>
-      <div id="aboutPanel" class="panel active">
-        <div class="card">
-          <h3>À propos</h3>
-          <p>Élève ingénieur spécialisé en génie électrique, avec des expériences en distribution d’énergie, suivi de chantier HTB, recherche académique et conception électronique. Curieux, rigoureux et à l’aise en coordination technique.</p>
-        </div>
-      </div>
+<section id="a-propos" data-section>
+<div class="card">
+<h2>À propos</h2>
+<p>Élève ingénieur en génie électrique, je travaille sur le suivi technique de projets et l’analyse de performances d’installations. Mes expériences en distribution d’énergie, suivi de chantier et recherche me donnent une approche à la fois terrain et méthodique, avec une bonne coordination d’équipes.</p>
+</div>
+</section>
 
-      <div id="experiencesPanel" class="panel">
-        <div class="flex">
-          <div class="list" id="expList"></div>
-          <div class="detail" id="expDetail"></div>
-        </div>
-      </div>
+<section id="experiences" data-section>
+<div class="card">
+<h2>Expériences</h2>
+<div class="timeline">
 
-      <div id="formationPanel" class="panel"></div>
-      <div id="competencesPanel" class="panel"></div>
-      <div id="distinctionsPanel" class="panel"></div>
-      <div id="languesPanel" class="panel"></div>
-      <div id="interetsPanel" class="panel"></div>
-    </section>
+<div class="tItem">
+<div class="tTop"><span>2026</span><span>Schneider Electric</span></div>
+<details>
+<summary>Stagiaire Ingénieur — Distribution Électrique</summary>
+<ul>
+<li>Suivi technique de contrats et analyse d’équipements HT/BT.</li>
+<li>Vérification de conformité d’installations électriques.</li>
+<li>Coordination avec Field Services et bureaux d’études.</li>
+</ul>
+</details>
+</div>
 
-    <div class="footer">UI statique + tabs + mode sombre (GitHub Pages)</div>
-  </div>
+<div class="tItem">
+<div class="tTop"><span>2025</span><span>BCE GRID</span></div>
+<details>
+<summary>Stagiaire Ingénieur — Suivi chantier HTB</summary>
+<ul>
+<li>Suivi de construction d’un poste haute tension.</li>
+<li>Analyse de conformité technique et coordination chantier.</li>
+<li>Participation à la gestion de projet.</li>
+</ul>
+</details>
+</div>
 
-  <script>
-    const $ = (id)=>document.getElementById(id);
-    const tabs = ['about','experiences','formation','competences','distinctions','langues','interets'];
+<div class="tItem">
+<div class="tTop"><span>2024–2025</span><span>IREENA</span></div>
+<details>
+<summary>Parcours recherche</summary>
+<ul>
+<li>Rédaction d’un article scientifique.</li>
+<li>Simulation de machines synchrones.</li>
+<li>Analyse et comparaison de modèles.</li>
+</ul>
+</details>
+</div>
 
-    function setTheme(dark){
-      document.body.classList.toggle('dark', dark);
-      localStorage.setItem('cv_theme', dark ? 'dark' : 'light');
-      $('themeBtn').textContent = dark ? 'Mode clair' : 'Mode sombre';
-    }
-    $('themeBtn').addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
-    setTheme(localStorage.getItem('cv_theme') === 'dark');
+<div class="tItem">
+<div class="tTop"><span>2024–2025</span><span>Polyjoule</span></div>
+<details>
+<summary>Projet techniques</summary>
+<ul>
+<li>Optimisation énergétique de véhicules.</li>
+<li>Conception de cartes électroniques (PCB), soudure et programmation.</li>
+</ul>
+</details>
+</div>
 
-    tabs.forEach(t=>{
-      $(t+'Tab').addEventListener('click',()=>{
-        tabs.forEach(u=>{
-          $(u+'Tab').classList.toggle('active',u===t);
-          $(u+'Panel').classList.toggle('active',u===t);
-        });
-      });
-    });
+<div class="tItem">
+<div class="tTop"><span>2022</span><span>Électricité de Guinée</span></div>
+<details>
+<summary>Stage technique</summary>
+<ul>
+<li>Transport et distribution d’énergie.</li>
+<li>Installation de compteurs et postes BT/HT.</li>
+</ul>
+</details>
+</div>
 
-    const pill = (items)=>items.map(i=>'<span class="pill">'+i+'</span>').join('');
+</div>
+</div>
+</section>
 
-    const experiences = [
-      {role:'Stagiaire Ingénieur',company:'Schneider Electric',range:'2026',city:'Nantes',points:[
-        'Suivi technique de contrats de services',
-        'Analyse des équipements HT/BT et indicateurs de performance',
-        'Vérification de la conformité des installations',
-        'Coordination avec Field Services et bureaux d’études'
-      ]},
-      {role:'Stagiaire Ingénieur',company:'BCE GRID',range:'2025',city:'Chantier',points:[
-        'Suivi de construction et logistique du poste haute tension',
-        'Vérification de la conformité technique des installations',
-        'Coordination avec les équipes chantier et gestion de projet'
-      ]},
-      {role:'Parcours Recherche',company:'IREENA — Polytech Nantes',range:'2024–2025',city:'',points:[
-        'Rédaction d’un article scientifique',
-        'Simulation de machines synchrones (MSAP)',
-        'Analyse des modèles et résultats'
-      ]},
-      {role:'Polyjoule',company:'Polytech Nantes',range:'2024–2025',city:'',points:[
-        'Optimisation énergétique et gestion de l’énergie',
-        'Conception de cartes électroniques, soudure et programmation'
-      ]},
-      {role:'Électricité de Guinée',company:'',range:'2022',city:'',points:[
-        'Réseaux de transport et distribution',
-        'Installation de compteurs et postes BT/HT'
-      ]}
-    ];
+<section id="formation" data-section>
+<div class="card">
+<h2>Formation</h2>
+<div class="row">
+<div>
+<h3>Polytech Nantes</h3>
+<p class="subtitle" style="margin-top:6px">Diplôme d’ingénieur — Génie Électrique<br>2024–2026</p>
+</div>
+<div>
+<h3>Université Gamal Abdel Nasser</h3>
+<p class="subtitle" style="margin-top:6px">Licence Génie Électrique<br>2020–2024</p>
+</div>
+</div>
+</div>
+</section>
 
-    function renderExperiences(){
-      $('expList').innerHTML = experiences.map((e,i)=>`
-        <button class="expItem" data-idx="${i}">
-          <div class="expTop">
-            <div class="expRole">${e.role}</div>
-            <div class="expRange">${e.range}</div>
-          </div>
-          <div class="expCompany">${e.company}</div>
-        </button>
-      `).join('');
+<section id="competences" data-section>
+<div class="card">
+<h2>Compétences</h2>
+<div class="row">
+<div>
+<h3>Génie électrique</h3>
+<div class="pills">
+<div class="pill">Électronique de puissance</div>
+<div class="pill">Conversion d’énergie</div>
+<div class="pill">Réseaux HT/BT</div>
+<div class="pill">Commande de machines</div>
+<div class="pill">Énergies renouvelables</div>
+</div>
+</div>
+<div>
+<h3>Techniques</h3>
+<div class="pills">
+<div class="pill">PCB</div>
+<div class="pill">Microcontrôleurs</div>
+<div class="pill">Simulation MSAP</div>
+<div class="pill">Analyse de performance</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-      const select = (idx)=>{
-        const e = experiences[idx];
-        $('expDetail').innerHTML = `
-          <div class="card">
-            <div class="topRow">
-              <div>
-                <div class="bold">${e.role}${e.company?' — '+e.company:''}</div>
-                <div class="small">${e.range}${e.city?' · '+e.city:''}</div>
-              </div>
-            </div>
-            <ul class="points">${e.points.map(p=>'<li>'+p+'</li>').join('')}</ul>
-          </div>`;
-        document.querySelectorAll('.expItem').forEach(btn=>{
-          btn.classList.toggle('active',Number(btn.dataset.idx)===idx);
-        });
-      };
-      select(0);
-      document.querySelectorAll('.expItem').forEach(btn=>{
-        btn.addEventListener('click',()=>select(Number(btn.dataset.idx)));
-      });
-    }
-    renderExperiences();
+<section id="distinctions" data-section>
+<div class="card">
+<h2>Distinctions</h2>
+<ul>
+<li>Programme Leadership Ashinaga France (2024–2027)</li>
+<li>Initiative Ashinaga pour l’Afrique (1 sélectionné sur 2500)</li>
+</ul>
+</div>
+</section>
 
-    const formation = [
-      {title:'Polytech Nantes',range:'2024–2026',subtitle:'Diplôme d’Ingénieur — Génie Électrique'},
-      {title:'Université Gamal Abdel Nasser',range:'2020–2024',subtitle:'Licence — Génie Électrique'}
-    ];
-    $('formationPanel').innerHTML = `
-      <div class="gridCards">
-        ${formation.map(f=>`
-          <div class="card">
-            <div class="topRow">
-              <div class="bold">${f.title}</div>
-              <div class="small">${f.range}</div>
-            </div>
-            <div class="small" style="margin-top:6px;">${f.subtitle}</div>
-          </div>`).join('')}
-      </div>`;
+<section id="langues" data-section>
+<div class="card">
+<h2>Langues</h2>
+<div class="row">
+<div>
+<h3>Français</h3>
+<p class="subtitle" style="margin-top:6px">Langue maternelle</p>
+</div>
+<div>
+<h3>Anglais</h3>
+<p class="subtitle" style="margin-top:6px">B2</p>
+</div>
+</div>
+</div>
+</section>
 
-    const competences = [
-      {cat:'Génie électrique',items:['Électronique de puissance','Conversion d’énergie','Réseaux électriques','Commande de machines','Énergies renouvelables']},
-      {cat:'Techniques',items:['Conception PCB','Systèmes embarqués','Programmation','Analyse de performances']},
-      {cat:'Gestion de projet',items:['Suivi de chantier','Coordination équipe','Analyse conformité','Indicateurs QHSE']}
-    ];
-    $('competencesPanel').innerHTML = `
-      <div class="gridCards">
-        ${competences.map(c=>`
-          <div class="card">
-            <div class="bold">${c.cat}</div>
-            <div class="pillz">${pill(c.items)}</div>
-          </div>`).join('')}
-      </div>`;
+<section id="interets" data-section>
+<div class="card">
+<h2>Centres d’intérêt</h2>
+<div class="pills">
+<div class="pill">Veille technologique</div>
+<div class="pill">Smart grids</div>
+<div class="pill">Électronique de puissance</div>
+<div class="pill">Énergies renouvelables</div>
+<div class="pill">Mobilité électrique</div>
+<div class="pill">Systèmes embarqués</div>
+<div class="pill">Sport</div>
+<div class="pill">Lecture</div>
+<div class="pill">Voyages</div>
+</div>
+</div>
+</section>
 
-    const distinctions = [
-      {title:'Leadership Ashinaga France',range:'2024–2027'},
-      {title:'Initiative Ashinaga pour l’Afrique',range:'1 sélectionné sur 2500'}
-    ];
-    $('distinctionsPanel').innerHTML = `
-      <div class="gridCards">
-        ${distinctions.map(d=>`
-          <div class="card">
-            <div class="topRow">
-              <div class="bold">${d.title}</div>
-              <div class="small">${d.range}</div>
-            </div>
-          </div>`).join('')}
-      </div>`;
+<div class="footer">CV statique — design “one page” avec navigation et mode sombre</div>
 
-    const langues = [
-      {title:'Français',level:'Langue maternelle'},
-      {title:'Anglais',level:'B2'}
-    ];
-    $('languesPanel').innerHTML = `
-      <div class="gridCards">
-        ${langues.map(l=>`
-          <div class="card">
-            <div class="topRow">
-              <div class="bold">${l.title}</div>
-              <div class="small">${l.level}</div>
-            </div>
-          </div>`).join('')}
-      </div>`;
+</div>
+<script>
+(function(){
+const body=document.body;
+const btn=document.getElementById('themeToggle');
+const saved=localStorage.getItem('theme');
+if(saved==='dark') body.classList.add('dark');
+updateBtn();
+btn.addEventListener('click',()=>{
+body.classList.toggle('dark');
+localStorage.setItem('theme',body.classList.contains('dark')?'dark':'light');
+updateBtn();
+});
+function updateBtn(){btn.textContent=body.classList.contains('dark')?'Mode clair':'Mode sombre';}
 
-    const interets = [
-      'Veille technologique (smart grids, ENR)',
-      'Mobilité électrique & optimisation énergétique',
-      'Conception électronique & systèmes embarqués',
-      'Sport',
-      'Lecture',
-      'Voyages'
-    ];
-    $('interetsPanel').innerHTML = `
-      <div class="card">
-        <div class="bold">Centres d’intérêt</div>
-        <div class="pillz">${pill(interets)}</div>
-      </div>`;
-  </script>
+const links=[...document.querySelectorAll('#nav a')];
+const sections=[...document.querySelectorAll('[data-section]')];
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+const id=entry.target.id;
+links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+}
+});
+},{threshold:0.35});
+sections.forEach(sec=>obs.observe(sec));
+})();
+</script>
 </body>
 </html>
