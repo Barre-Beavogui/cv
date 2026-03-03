@@ -24,6 +24,14 @@ function App() {
           <p>Participation associative.</p>
         </Item>
       </div>
+
+      <h3 style={{ marginTop: "24px" }}>Centres d'intérêt</h3>
+      <ul style={{ marginTop: "8px", paddingLeft: "20px" }}>
+        <li>Veille technologique (smart grids, électronique de puissance, ENR)</li>
+        <li>Mobilité électrique & optimisation énergétique</li>
+        <li>Conception électronique & systèmes embarqués</li>
+        <li>Sport, lecture, voyages</li>
+      </ul>
     </div>
   );
 }
