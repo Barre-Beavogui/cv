@@ -1,14 +1,15 @@
+const assetPrefix = window.location.pathname.startsWith('/cv/') ? '/cv/' : '/';
 const assets = {
-  portrait: '/cv-assets/portrait.jpg',
-  schneider: '/cv-assets/logo-schneider.png',
-  bce: '/cv-assets/logo-bce-grid.avif',
-  ireena: '/cv-assets/logo-ireena.png',
-  polyjoule: '/cv-assets/logo-polyjoule.jpg',
-  bde: '/cv-assets/logo-bde.png',
-  edg: '/cv-assets/logo-edg.png',
-  polytech: '/cv-assets/logo-polytech.png',
-  ashinaga: '/cv-assets/logo-ashinaga.png',
-  ugan: '/cv-assets/logo-ugan.png',
+  portrait: 'cv-assets/portrait.jpg',
+  schneider: 'cv-assets/logo-schneider.png',
+  bce: 'cv-assets/logo-bce-grid.avif',
+  ireena: 'cv-assets/logo-ireena.png',
+  polyjoule: 'cv-assets/logo-polyjoule.jpg',
+  bde: 'cv-assets/logo-bde.png',
+  edg: 'cv-assets/logo-edg.png',
+  polytech: 'cv-assets/logo-polytech.png',
+  ashinaga: 'cv-assets/logo-ashinaga.png',
+  ugan: 'cv-assets/logo-ugan.png',
 };
 
 const profile = {
