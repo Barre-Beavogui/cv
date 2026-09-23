@@ -1,534 +1,177 @@
-const assetPrefix = window.location.pathname.startsWith('/cv/') ? '/cv/' : '/';
-const assets = {
-  portrait: 'cv-assets/portrait.jpg',
-  schneider: 'cv-assets/logo-schneider.png',
-  bce: 'cv-assets/logo-bce-grid.avif',
-  ireena: 'cv-assets/logo-ireena.png',
-  polyjoule: 'cv-assets/logo-polyjoule.jpg',
-  bde: 'cv-assets/logo-bde.png',
-  edg: 'cv-assets/logo-edg.png',
-  polytech: 'cv-assets/logo-polytech.png',
-  ashinaga: 'cv-assets/logo-ashinaga.png',
-  ugan: 'cv-assets/logo-ugan.png',
-};
+import { useEffect, useState } from 'react';
+import { assets, profile, stats, expertise, partnerLogos, experiences, projects, education, distinctions, languages, interests } from './data';
 
-const profile = {
-  name: 'Barre Beavogui',
-  title: 'Élève ingénieur en génie électrique',
-  subtitle: 'Polytech Nantes · 4e année · Alternance recherchée pour septembre 2026',
-  intro:
-    'Je construis mon parcours autour du suivi technique de projets, de l’analyse des installations et de l’amélioration continue des systèmes électriques. Je cherche aujourd’hui une alternance où je peux contribuer sur des sujets HT/BT, chantier, énergie et coordination technique.',
-  location: 'Nantes / Saint-Nazaire, France',
-  email: 'barre.beavogui@etu.univ-nantes.fr',
-  phone: '+33 06 78 24 07 14',
-  phoneHref: '+33678240714',
-  linkedin: 'https://www.linkedin.com/in/barre-beavogui',
-};
+const keywords = ['Énergie', 'Réseaux électriques', 'Terrain', 'Recherche', 'Coordination', 'Gestion de projet'];
 
-const stats = [
-  { value: '4+', label: 'expériences terrain et recherche' },
-  { value: '3', label: 'écoles et programmes suivis' },
-  { value: 'HT/BT', label: 'environnements techniques' },
-  { value: 'B2', label: 'niveau d’anglais' },
-];
+function Arrow() {
+  return <span aria-hidden="true">↗</span>;
+}
 
-const expertise = [
-  {
-    title: 'Suivi technique',
-    text: 'Lecture des plans, analyse des installations et vérification de conformité sur des environnements électriques.',
-  },
-  {
-    title: 'Coordination projet',
-    text: 'Travail avec équipes terrain, bureaux d’études et parties prenantes pour garder les projets fluides.',
-  },
-  {
-    title: 'Énergie & conversion',
-    text: 'Intérêt fort pour la distribution électrique, l’électronique de puissance, les réseaux et les renouvelables.',
-  },
-];
-
-const objectives = [
-  'Mettre en pratique mes connaissances en électronique de puissance, systèmes électriques et énergies renouvelables.',
-  'Contribuer à la conception, au développement et à l’optimisation de systèmes électriques et électroniques.',
-  'Renforcer mes compétences en gestion et suivi de projets industriels, de l’étude initiale jusqu’à la mise en service.',
-];
-
-const partnerLogos = [
-  { name: 'Schneider Electric', src: assets.schneider },
-  { name: 'BCE Grid', src: assets.bce },
-  { name: 'IREENA', src: assets.ireena },
-  { name: 'Polytech Nantes', src: assets.polytech },
-  { name: 'Ashinaga', src: assets.ashinaga },
-  { name: 'Université Gamal Abdel Nasser', src: assets.ugan },
-  { name: 'Électricité de Guinée', src: assets.edg },
-];
-
-const experiences = [
-  {
-    period: 'Mars 2026 – Août 2026',
-    title: 'Stagiaire ingénieur en distribution électrique',
-    company: 'Schneider Electric',
-    location: 'Nantes, France',
-    logo: assets.schneider,
-    bullets: [
-      'Suivi technique de contrats de services liés à des installations de distribution et de gestion de l’énergie.',
-      'Analyse des performances des équipements électriques HT/BT et vérification de conformité.',
-      'Coordination avec les équipes Field Services et les bureaux d’études.',
-      'Suivi d’indicateurs qualité, sécurité et satisfaction client.',
-    ],
-    tags: ['Distribution électrique', 'HT/BT', 'Customer success', 'Qualité'],
-  },
-  {
-    period: 'Juin 2025 – Septembre 2025',
-    title: 'Stagiaire ingénieur en suivi de chantier HTB',
-    company: 'BCE Grid',
-    location: 'Montpellier / Saint-Pierre-des-Jonquières, France',
-    logo: assets.bce,
-    bullets: [
-      'Suivi quotidien des travaux de construction d’un poste électrique haute tension.',
-      'Vérification de la conformité des installations par rapport aux plans et études techniques.',
-      'Coordination avec les équipes de chantier et les bureaux d’études.',
-    ],
-    tags: ['HTB', 'Suivi de chantier', 'Conformité', 'Coordination'],
-  },
-  {
-    period: 'Octobre 2024 – Mai 2025',
-    title: 'Parcours recherche',
-    company: 'Laboratoire IREENA',
-    location: 'Polytech Nantes, Saint-Nazaire, France',
-    logo: assets.ireena,
-    bullets: [
-      'Immersion dans un environnement de recherche et découverte des méthodologies scientifiques.',
-      'Rédaction d’un article scientifique.',
-      'Synthèse de résultats sur les modèles de simulation pour machines synchrones (MSAP).',
-    ],
-    tags: ['Recherche', 'Simulation', 'MSAP', 'Rédaction scientifique'],
-  },
-  {
-    period: 'Avril 2022 – Juin 2022',
-    title: 'Stagiaire en réseaux électriques BT/HT',
-    company: 'Électricité de Guinée (EDG)',
-    location: 'Conakry, Guinée',
-    logo: assets.edg,
-    bullets: [
-      'Découverte du fonctionnement des réseaux de transport et de distribution électrique.',
-      'Participation à l’installation de compteurs.',
-      'Participation à l’installation de postes de transformation BT/HT.',
-    ],
-    tags: ['Réseaux électriques', 'BT/HT', 'Transport', 'Distribution'],
-  },
-];
-
-const projects = [
-  {
-    period: '2024 – 2025',
-    title: 'Projet associatif Polyjoule',
-    org: 'Polytech Nantes',
-    location: 'Saint-Nazaire, France',
-    logo: assets.polyjoule,
-    bullets: [
-      'Développement de voitures à ultra-faible consommation avec optimisation des performances énergétiques.',
-      'Conception de cartes électroniques (PCB).',
-      'Soudure de composants et programmation de microcontrôleurs.',
-    ],
-    tags: ['PCB', 'Microcontrôleurs', 'Hydrogène', 'Optimisation énergétique'],
-  },
-  {
-    period: '2024 – 2025',
-    title: 'Secrétaire du Bureau des étudiants',
-    org: 'Polytech Nantes',
-    location: 'Saint-Nazaire, France',
-    logo: assets.bde,
-    bullets: [
-      'Rédaction des comptes rendus et gestion des courriers officiels.',
-      'Participation à l’organisation d’événements étudiants et partenariats.',
-    ],
-    tags: ['Organisation', 'Communication', 'Vie associative'],
-  },
-];
-
-const education = [
-  {
-    period: '2024 – 2026',
-    degree: 'Diplôme d’ingénieur en génie électrique',
-    school: 'Polytech Nantes',
-    location: 'Saint-Nazaire, France',
-    logo: assets.polytech,
-    intro:
-      'Cycle ingénieur centré sur les systèmes électriques, la conversion d’énergie et la conception électronique.',
-    courses: [
-      'Électronique de puissance',
-      'Conversion d’énergie',
-      'Commande de machines électriques',
-      'Électronique analogique',
-      'Électronique numérique',
-      'Informatique',
-      'Énergies renouvelables',
-    ],
-  },
-  {
-    period: '2023 – 2024',
-    degree: 'Programme de leadership',
-    school: 'Ashinaga Sénégal',
-    location: 'Dakar, Sénégal',
-    logo: assets.ashinaga,
-    intro:
-      'Programme complémentaire orienté leadership, gestion de projet et développement du réseau professionnel.',
-    courses: ['Gestion de projet', 'Développement de réseau professionnel', 'Leadership'],
-  },
-  {
-    period: '2020 – 2024',
-    degree: 'Licence en génie électrique',
-    school: 'Université Gamal Abdel Nasser',
-    location: 'Conakry, Guinée',
-    logo: assets.ugan,
-    intro:
-      'Formation généraliste en génie électrique avec une base solide en réseaux, analyse de systèmes et automatismes.',
-    courses: [
-      'Réseaux électriques BT/HT',
-      'Analyse de systèmes électriques',
-      'Énergies renouvelables',
-      'Automatismes',
-    ],
-  },
-];
-
-const distinctions = [
-  {
-    period: '2024 – 2027',
-    title: 'Programme de Leadership, Ashinaga France',
-    text: 'Boursier avec accompagnement académique et financier, développement personnel et réseau professionnel.',
-  },
-  {
-    period: '2022 – 2023',
-    title: 'Initiative Ashinaga pour l’Afrique',
-    text: 'Bourse d’excellence internationale et de leadership avec ateliers de prise de parole en public et prise d’initiative.',
-  },
-];
-
-const languages = [
-  { label: 'Français', value: 'Langue maternelle' },
-  { label: 'Anglais', value: 'B2' },
-];
-
-const interests = [
-  'Énergie',
-  'Réseaux électriques',
-  'Électronique',
-  'Microcontrôleurs',
-  'Data centers',
-  'Fiabilité énergétique',
-  'Innovation',
-  'Technologies énergétiques',
-];
-
-function SectionTitle({ eyebrow, title, text }) {
+function SectionHeading({ number, eyebrow, title, text }) {
   return (
-    <div className="section-title">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2>{title}</h2>
-      {text ? <p className="section-text">{text}</p> : null}
+    <div className="section-heading">
+      <span className="section-number" aria-hidden="true">{number}</span>
+      <div>
+        <p className="eyebrow">{eyebrow}</p>
+        <h2>{title}</h2>
+        {text && <p className="section-text">{text}</p>}
+      </div>
     </div>
   );
 }
 
-function Chip({ children }) {
-  return <span className="chip">{children}</span>;
+function Chips({ items }) {
+  return <div className="chip-row">{items.map(item => <span className="chip" key={item}>{item}</span>)}</div>;
 }
 
-function ExperienceCard({ item }) {
+function SourceLink({ source }) {
+  return source ? <a className="source-link" href={source.url} target="_blank" rel="noreferrer">{source.label} <Arrow /></a> : null;
+}
+
+function Experience({ item }) {
   return (
-    <article className="card experience-card">
-      <div className="card-header">
-        <div>
-          <p className="period">{item.period}</p>
-          <h3>{item.title}</h3>
-          <p className="meta">
-            {item.company} <span>•</span> {item.location}
-          </p>
+    <article className="experience-item">
+      <aside className="experience-aside">
+        <p className="period">{item.period}</p>
+        <span className="experience-kind">{item.company === 'Laboratoire IREENA' ? 'Parcours recherche' : 'Stage'}</span>
+      </aside>
+      <div className="experience-body">
+        <div className="experience-heading">
+          <div>
+            <p className="organization">{item.company}</p>
+            <h3>{item.title}</h3>
+            <p className="meta">{item.location}</p>
+          </div>
+          <img src={item.logo} alt={item.company} className="logo-badge" loading="lazy" />
         </div>
-        <img src={item.logo} alt={item.company} className="logo-badge" />
-      </div>
-
-      <ul className="bullet-list">
-        {item.bullets.map((bullet) => (
-          <li key={bullet}>{bullet}</li>
-        ))}
-      </ul>
-
-      <div className="chip-row">
-        {item.tags.map((tag) => (
-          <Chip key={tag}>{tag}</Chip>
-        ))}
-      </div>
-    </article>
-  );
-}
-
-function ProjectCard({ item }) {
-  return (
-    <article className="card project-card">
-      <div className="project-logo-wrap">
-        <img src={item.logo} alt={item.org} className="project-logo" />
-      </div>
-      <p className="period">{item.period}</p>
-      <h3>{item.title}</h3>
-      <p className="meta">
-        {item.org} <span>•</span> {item.location}
-      </p>
-      <ul className="bullet-list">
-        {item.bullets.map((bullet) => (
-          <li key={bullet}>{bullet}</li>
-        ))}
-      </ul>
-      <div className="chip-row">
-        {item.tags.map((tag) => (
-          <Chip key={tag}>{tag}</Chip>
-        ))}
-      </div>
-    </article>
-  );
-}
-
-function EducationCard({ item }) {
-  return (
-    <article className="card education-card">
-      <div className="card-header">
-        <div>
-          <p className="period">{item.period}</p>
-          <h3>{item.degree}</h3>
-          <p className="meta">
-            {item.school} <span>•</span> {item.location}
-          </p>
+        <p className="experience-summary">{item.summary}</p>
+        <ul className="bullet-list">{item.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
+        <p className="experience-value"><strong>Ce que j’en retiens.</strong> {item.value}</p>
+        <div className="experience-footer">
+          <Chips items={item.tags} />
+          <SourceLink source={item.source} />
         </div>
-        <img src={item.logo} alt={item.school} className="logo-badge" />
-      </div>
-
-      <p className="body-copy">{item.intro}</p>
-
-      <div className="course-grid">
-        {item.courses.map((course) => (
-          <Chip key={course}>{course}</Chip>
-        ))}
       </div>
     </article>
   );
 }
 
 export default function App() {
+  const [paused, setPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const followPreference = (event) => setPaused(event.matches);
+    preference.addEventListener('change', followPreference);
+    return () => preference.removeEventListener('change', followPreference);
+  }, []);
+
   return (
-    <div className="site-shell">
-      <div className="site-frame">
-        <header className="hero" id="top">
-          <nav className="topbar">
-            <a href="#top" className="brand">
-              <span className="brand-mark">BB</span>
-              <span className="brand-text">Barre Beavogui</span>
-            </a>
+    <div className="site-shell" data-motion={paused ? 'paused' : 'running'}>
+      <a href="#main-content" className="skip-link">Aller au contenu</a>
+      <header className="site-header">
+        <nav className="topbar page-width" aria-label="Navigation principale">
+          <a href="#top" className="brand" aria-label="Barre Beavogui — accueil">
+            <span className="brand-mark">BB<span aria-hidden="true">.</span></span>
+            <span className="brand-text">Barre Beavogui<small>Génie électrique & projets</small></span>
+          </a>
+          <div className="nav-links">
+            <a href="#profil">Profil</a>
+            <a href="#experience">Expériences</a>
+            <a href="#formation">Formation</a>
+            <a href="#contact">Échangeons <Arrow /></a>
+          </div>
+        </nav>
+      </header>
 
-            <div className="nav-links">
-              <a href="#profil">Profil</a>
-              <a href="#experience">Expériences</a>
-              <a href="#formation">Formations</a>
-              <a href="#contact">Contact</a>
-            </div>
-          </nav>
-
+      <main id="main-content">
+        <section className="hero page-width" id="top" aria-labelledby="hero-heading">
           <div className="hero-grid">
             <div className="hero-copy">
-              <p className="hero-kicker">Alternance 2026 • Génie électrique</p>
-              <h1>{profile.name}</h1>
-              <p className="hero-title">{profile.title}</p>
-              <p className="hero-subtitle">{profile.subtitle}</p>
+              <p className="eyebrow hero-eyebrow"><span className="status-dot" />{profile.subtitle}</p>
+              <p className="hero-name">{profile.name}</p>
+              <h1 id="hero-heading">Du terrain<br />aux projets<br /><span className="accent-text">d’énergie.</span></h1>
+              <p className="hero-role">{profile.title}</p>
               <p className="hero-description">{profile.intro}</p>
-
               <div className="hero-actions">
-                <a className="button button-primary" href={`mailto:${profile.email}`}>
-                  Me contacter
-                </a>
-                <a className="button button-secondary" href={profile.linkedin} target="_blank" rel="noreferrer">
-                  LinkedIn
-                </a>
+                <a className="button button-primary" href="#experience">Explorer mon parcours <span aria-hidden="true">↓</span></a>
+                <a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
               </div>
-
-              <div className="stats-grid">
-                {stats.map((stat) => (
-                  <article key={stat.label} className="stat-card">
-                    <strong>{stat.value}</strong>
-                    <span>{stat.label}</span>
-                  </article>
-                ))}
+              <div className="hero-focus">
+                <span className="focus-label">Une même ambition</span>
+                <span className="sr-only">Comprendre. Coordonner. Construire.</span>
+                <span className="rotating-words" aria-hidden="true"><span>Comprendre.</span><span>Coordonner.</span><span>Construire.</span></span>
               </div>
             </div>
-
             <div className="hero-visual">
               <div className="portrait-card">
-                <div className="portrait-background" />
-                <img src={assets.portrait} alt="Barre Beavogui" className="hero-portrait" />
+                <svg className="energy-lines" viewBox="0 0 480 480" fill="none" aria-hidden="true"><circle cx="240" cy="240" r="218" /><circle cx="240" cy="240" r="182" /><path d="M0 240H480M240 0V480" /></svg>
+                <img src={assets.portrait} width="609" height="574" alt="Portrait de Barre Beavogui" className="hero-portrait" fetchpriority="high" />
+                <span className="portrait-caption">Technique · Terrain · Projets</span>
               </div>
-
-              <article className="contact-card">
-                <p className="contact-label">Disponible depuis la France</p>
-                <h2>Suivi technique, chantier, énergie et coordination</h2>
-                <div className="contact-list">
-                  <a href={`mailto:${profile.email}`}>{profile.email}</a>
-                  <a href={`tel:${profile.phoneHref}`}>{profile.phone}</a>
-                  <p>{profile.location}</p>
-                </div>
+              <article className="next-step" aria-labelledby="next-step-title">
+                <div className="next-step-top"><span className="status-badge">Stage confirmé · À venir</span><p>Mars 2027</p></div>
+                <div className="next-step-heading"><h2 id="next-step-title">Chef de projet</h2><img src={assets.schneider} alt="Schneider Electric" /></div>
+                <p>De retour chez Schneider Electric pour mon stage de fin d’études, dans la continuité de mon expérience de 2026.</p>
               </article>
             </div>
           </div>
+          <div className="hero-bottom"><a className="scroll-link" href="#profil"><span aria-hidden="true">↓</span> Découvrir le fil conducteur</a><span className="location-label">Nantes / Saint-Nazaire, France</span></div>
+        </section>
 
-          <div className="logo-strip">
-            {partnerLogos.map((logo) => (
-              <div key={logo.name} className="logo-item">
-                <img src={logo.src} alt={logo.name} />
-              </div>
-            ))}
+        <section className="keywords-section" aria-label="Domaines et mots-clés">
+          <div className="keywords-heading page-width"><p className="eyebrow">Ce qui m’anime</p><button type="button" className="motion-toggle" aria-pressed={paused} aria-label="Mettre les animations en pause" onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span> {paused ? 'Reprendre les animations' : 'Mettre en pause'}</button></div>
+          <div className="marquee"><div className="marquee-track">{[0, 1].map(copy => <div className="marquee-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>{keywords.map(word => <span className="keyword" key={word}>{word}<span className="keyword-star" aria-hidden="true">✳</span></span>)}</div>)}</div></div>
+        </section>
+
+        <section className="logo-section page-width" aria-label="Les entreprises et établissements de mon parcours">
+          <p className="section-label">Les étapes de mon parcours</p>
+          <div className="logo-strip">{partnerLogos.map(logo => <div key={logo.name} className="logo-item"><img src={logo.src} alt={logo.name} loading="lazy" /></div>)}</div>
+        </section>
+
+        <section className="section page-width" id="profil">
+          <SectionHeading number="01" eyebrow="Le fil conducteur" title="Comprendre les systèmes. Faire avancer les projets." />
+          <div className="profile-intro">
+            <p className="profile-statement">Du réseau électrique en Guinée aux projets industriels en France, une même envie : donner du sens à la technique.</p>
+            <div className="profile-story">
+              <p>Mes premiers pas chez Électricité de Guinée m’ont familiarisé avec les réseaux. Chez BCE Grid, le chantier HTB m’a appris à relier les plans à la réalité des installations. Chez Schneider Electric, j’ai approfondi le suivi technique et la coordination autour des services de distribution électrique.</p>
+              <p>La recherche à l’IREENA et ma formation à Polytech Nantes complètent cette approche par l’analyse et la modélisation. Aujourd’hui en <strong>5e année de génie électrique</strong>, je poursuis cette progression vers la conduite de projets, avec un <strong>stage de chef de projet confirmé chez Schneider Electric dès mars 2027.</strong></p>
+            </div>
           </div>
-        </header>
+          <div className="expertise-grid">{expertise.map((item, index) => <article className="expertise-item" key={item.title}><span className="expertise-number">0{index + 1} /</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+          <div className="stats-grid">{stats.map(item => <div className="stat-item" key={item.label}><strong>{item.value}</strong><span>{item.label}</span></div>)}</div>
+        </section>
 
-        <main>
-          <section id="profil" className="section">
-            <SectionTitle
-              eyebrow="Profil"
-              title="Une approche terrain du génie électrique"
-              text="Je cherche une alternance où je peux intervenir à la fois sur l’analyse technique, la conformité des installations et le suivi opérationnel des projets."
-            />
+        <section className="section page-width" id="experience">
+          <SectionHeading number="02" eyebrow="Expériences" title="Le terrain comme point d’appui." text="Industrie, chantier et recherche : chaque étape apporte une nouvelle façon de comprendre et de faire avancer un projet électrique." />
+          <div className="experience-list">{experiences.map(item => <Experience key={item.company} item={item} />)}</div>
+        </section>
 
-            <div className="profile-layout">
-              <article className="card spotlight-card">
-                <p className="spotlight-label">Ce que je recherche</p>
-                <ul className="bullet-list">
-                  {objectives.map((objective) => (
-                    <li key={objective}>{objective}</li>
-                  ))}
-                </ul>
-              </article>
+        <section className="section page-width" id="formation">
+          <SectionHeading number="03" eyebrow="Formation" title="Une base scientifique. Une ouverture internationale." text="Un parcours entre la Guinée, le Sénégal et la France, qui associe génie électrique, leadership et mise en pratique." />
+          <div className="education-stack">{education.map(item => <article className="education-item" key={item.school}><div className="education-logo"><img src={item.logo} alt={item.school} loading="lazy" /></div><div className="education-content"><p className="period">{item.period}</p><h3>{item.degree}</h3><p className="meta">{item.school} · {item.location}</p><p className="body-copy">{item.intro}</p><Chips items={item.courses} /><SourceLink source={item.source} /></div></article>)}</div>
+        </section>
 
-              <div className="expertise-grid">
-                {expertise.map((item) => (
-                  <article key={item.title} className="card mini-card">
-                    <h3>{item.title}</h3>
-                    <p className="body-copy">{item.text}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
+        <section className="section page-width" id="projets">
+          <SectionHeading number="04" eyebrow="Projets & engagements" title="Apprendre aussi en construisant ensemble." text="L’électronique, la sobriété énergétique et la vie associative donnent une dimension concrète et collective à mon parcours." />
+          <div className="project-grid">{projects.map(item => <article className="project-card" key={item.title}><div className="project-top"><img className="project-logo" src={item.logo} alt={item.title} loading="lazy" /><p className="period">{item.period}</p></div><h3>{item.title}</h3><p className="meta">{item.org} · {item.location}</p><ul className="bullet-list">{item.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul><p className="project-value">{item.value}</p><Chips items={item.tags} /><SourceLink source={item.source} /></article>)}</div>
+        </section>
 
-          <section id="experience" className="section">
-            <SectionTitle
-              eyebrow="Expériences"
-              title="Des expériences en industrie, chantier et recherche"
-              text="Chaque étape de mon parcours m’a permis de renforcer ma compréhension des systèmes électriques, du travail de terrain et du suivi de projet."
-            />
+        <section className="section page-width" aria-label="Distinctions, langues et centres d’intérêt">
+          <div className="info-grid">
+            <article className="info-card"><h3>Distinctions & leadership</h3><div className="info-stack">{distinctions.map(item => <div className="info-item" key={item.title}><p className="period">{item.period}</p><p className="info-title">{item.title}</p><p className="body-copy">{item.text}</p></div>)}</div></article>
+            <article className="info-card"><h3>Langues</h3><div className="info-stack">{languages.map(item => <div className="info-item" key={item.label}><p className="info-title">{item.label}</p><p className="body-copy">{item.value}</p></div>)}</div></article>
+            <article className="info-card"><h3>Mes centres d’intérêt</h3><Chips items={interests} /></article>
+          </div>
+        </section>
 
-            <div className="experience-grid">
-              {experiences.map((item) => (
-                <ExperienceCard key={`${item.company}-${item.period}`} item={item} />
-              ))}
-            </div>
-          </section>
-
-          <section className="section">
-            <SectionTitle
-              eyebrow="Projets"
-              title="Des engagements qui complètent mon parcours"
-              text="Au-delà des stages, j’ai aussi travaillé sur des projets concrets en électronique et en organisation étudiante."
-            />
-
-            <div className="project-grid">
-              {projects.map((item) => (
-                <ProjectCard key={`${item.title}-${item.period}`} item={item} />
-              ))}
-            </div>
-          </section>
-
-          <section id="formation" className="section">
-            <SectionTitle
-              eyebrow="Formations"
-              title="Écoles, programme et cours suivis"
-              text="Voici les formations que j’ai suivies et les enseignements les plus utiles pour mon projet professionnel."
-            />
-
-            <div className="education-stack">
-              {education.map((item) => (
-                <EducationCard key={`${item.school}-${item.period}`} item={item} />
-              ))}
-            </div>
-          </section>
-
-          <section className="section">
-            <SectionTitle
-              eyebrow="Compléments"
-              title="Distinctions, langues et centres d’intérêt"
-            />
-
-            <div className="info-grid">
-              <article className="card info-card">
-                <h3>Distinctions</h3>
-                <div className="info-stack">
-                  {distinctions.map((item) => (
-                    <div key={item.title} className="info-item">
-                      <p className="period">{item.period}</p>
-                      <p className="info-title">{item.title}</p>
-                      <p className="body-copy">{item.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-
-              <article className="card info-card">
-                <h3>Langues</h3>
-                <div className="info-stack">
-                  {languages.map((item) => (
-                    <div key={item.label} className="info-item compact">
-                      <p className="info-title">{item.label}</p>
-                      <p className="body-copy">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-
-              <article className="card info-card">
-                <h3>Centres d’intérêt</h3>
-                <div className="chip-row">
-                  {interests.map((item) => (
-                    <Chip key={item}>{item}</Chip>
-                  ))}
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <section id="contact" className="section">
-            <div className="contact-banner">
-              <div>
-                <p className="eyebrow">Contact</p>
-                <h2>Disponible pour échanger sur une alternance en génie électrique</h2>
-                <p className="section-text">
-                  Si vous avez une opportunité liée aux systèmes électriques, au suivi de chantier,
-                  à la distribution HT/BT ou à l’énergie, je suis disponible pour en discuter.
-                </p>
-              </div>
-
-              <div className="contact-actions">
-                <a className="button button-primary" href={`mailto:${profile.email}`}>
-                  Envoyer un email
-                </a>
-                <a className="button button-secondary" href={`tel:${profile.phoneHref}`}>
-                  Appeler
-                </a>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <footer className="footer">
-          <p>© {new Date().getFullYear()} Barre Beavogui · Site statique personnel</p>
-        </footer>
-      </div>
+        <section className="contact-section" id="contact">
+          <div className="contact-inner page-width">
+            <div><p className="eyebrow">Restons en contact</p><h2>Parlons énergie.<br />Et projets.</h2><p className="section-text">Un échange autour des réseaux électriques, de la recherche ou du pilotage de projets ? Je serai ravi de partager mon parcours.</p><div className="contact-actions"><a className="button button-primary" href={`mailto:${profile.email}`}>Écrivez-moi <Arrow /></a><a className="button button-outline" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a></div></div>
+            <div className="contact-details"><a className="email-link" href={`mailto:${profile.email}`}>{profile.email}</a><a className="phone-link" href={`tel:${profile.phoneHref}`}>{profile.phone}</a><p>{profile.location}</p><p className="contact-note">5e année à Polytech Nantes<br />Prochaine étape : Schneider Electric · Mars 2027</p></div>
+          </div>
+        </section>
+      </main>
+      <footer className="footer page-width"><p>© {new Date().getFullYear()} Barre Beavogui · Génie électrique & projets</p><a className="back-top" href="#top">Retour en haut <span aria-hidden="true">↑</span></a></footer>
     </div>
   );
 }
